@@ -1,0 +1,78 @@
+# Python cache and artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+env/
+venv/
+.venv/
+
+# Pip logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Test and coverage artifacts
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.pytest_cache/
+.mypy_cache/
+
+# Git files
+.git/
+.gitignore
+
+# Log files
+*.log
+
+# Test files and directories
+tests/
+test_*.py
+final_test.py # Assuming this is a test file
+test_import.py # Assuming this is a test-related import script
+
+# Server utility scripts (if not part of the main app)
+simple_server.py
+run_server.py
+
+# Configuration and secrets (to be managed by Railway)
+*.json # If not needed in the image (e.g. local configs)
+.env
+env.example # Template, actual env vars from Railway
+
+# Docker and deployment files (not needed inside the image itself)
+.dockerignore
+Dockerfile
+Dockerfile.simple
+Dockerfile.stage3
+README.md
+DEPLOYMENT.md
+railway.toml
+
+# Old/Staged main application files
+main_current.py
+main_simple.py
+main_stage2.py
+main_stage3.py
+main_stage4.py
+main_test.py
+
+# Old/Staged module files
+models_simple.py
+database_simple.py
+
+# Old/Staged requirements files
+requirements.txt # General requirements, if not prod
+requirements-stage2.txt
+requirements-stage4.txt
+
+# Database schema and migrations (if not run from within the container)
+migrations/
+supabase_schema.sql

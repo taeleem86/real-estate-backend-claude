@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# 환경변수/시크릿
+.env
+.env.*
+secrets.json
+settings_local.py
+
+# 데이터베이스/임시 파일
+*.sqlite3
+*.db
+*.log
+
+# 테스트/캐시
+.pytest_cache/
+.coverage
+htmlcov/
+.cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.pyc
+
+# IDE/에디터
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 기타
+*.bak
+*.tmp 

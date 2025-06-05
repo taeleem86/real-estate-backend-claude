@@ -1,0 +1,34 @@
+# 프로덕션 배포용 최적화 의존성 (pydantic v2 기준)
+# FastAPI 및 웹 서버
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# 데이터베이스 연동
+supabase==2.0.2
+asyncpg==0.29.0
+
+# HTTP 클라이언트 (외부 API 연동)
+httpx==0.24.1
+PublicDataReader==1.1.1.post2
+requests==2.32.3
+
+# 웹 스크래핑
+beautifulsoup4==4.13.3  # publicdatareader와 맞춘 최신 버전
+lxml==4.9.3
+
+# 데이터 처리 및 검증 - Pydantic V2
+pydantic~=2.7.0
+pydantic-settings~=2.2.0
+pandas==2.2.3
+numpy~=1.24.4
+
+# 환경변수 관리
+python-dotenv==1.0.0
+
+# 로깅 및 유틸리티
+structlog==23.2.0
+python-dateutil==2.8.2
+
+# 프로덕션 보안 및 성능
+gunicorn==21.2.0

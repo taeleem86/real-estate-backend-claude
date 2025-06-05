@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python test_api_improved.py:*)",
+      "Bash(python test_railway_api.py:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "mcp__supabase__execute_sql",
+      "Bash(grep:*)",
+      "Bash(mv:*)",
+      "Bash(python test_vworld_fixed.py:*)",
+      "Bash(pip install:*)",
+      "Bash(python test_vworld_simple.py:*)",
+      "Bash(python test_vworld_with_config.py:*)",
+      "Bash(python test_vworld_real_key.py:*)",
+      "Bash(python test_real_addresses.py:*)",
+      "Bash(rm:*)",
+      "Bash(ls:*)",
+      "WebFetch(domain:www.vworld.kr)",
+      "Bash(rg:*)",
+      "Bash(python3:*)",
+      "Bash(cp:*)",
+      "Bash(mkdir:*)",
+      "mcp__playwright-stealth__playwright_navigate",
+      "Bash(python test_proxy_debug.py:*)",
+      "Bash(python:*)",
+      "Bash(echo:*)",
+      "Bash(find:*)",
+      "mcp__supabase__list_projects",
+      "mcp__supabase__get_project",
+      "mcp__supabase__list_tables"
+    ],
+    "deny": []
+  }
+}
