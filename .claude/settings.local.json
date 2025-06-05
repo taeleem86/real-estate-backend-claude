@@ -30,7 +30,8 @@
       "mcp__supabase__get_project",
       "mcp__supabase__list_tables",
       "WebFetch(domain:real-estate-backend-claude.onrender.com)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "WebFetch(domain:api.vworld.kr)"
     ],
     "deny": []
   }
