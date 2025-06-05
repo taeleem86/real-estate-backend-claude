@@ -28,7 +28,9 @@
       "Bash(find:*)",
       "mcp__supabase__list_projects",
       "mcp__supabase__get_project",
-      "mcp__supabase__list_tables"
+      "mcp__supabase__list_tables",
+      "WebFetch(domain:real-estate-backend-claude.onrender.com)",
+      "Bash(git push:*)"
     ],
     "deny": []
   }

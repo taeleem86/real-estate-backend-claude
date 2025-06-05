@@ -27,7 +27,8 @@ app = FastAPI(
     description="PyQt 데스크톱 앱을 위한 부동산 매물 분석 및 관리 API",
     version="1.0.0",
     docs_url="/docs" if settings.DEBUG else None,  # 프로덕션에서는 docs 비활성화
-    redoc_url="/redoc" if settings.DEBUG else None
+    redoc_url="/redoc" if settings.DEBUG else None,
+    redirect_slashes=False  # 307 리다이렉트 문제 해결
 )
 
 # CORS 설정 (프로덕션 보안 강화)
