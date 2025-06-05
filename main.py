@@ -11,15 +11,38 @@ import logging
 from core.config import settings
 from core.database import init_database
 
-# API 라우터 임포트 (상대 경로로 변경)
-from api.v1.listings import router as listings_router
-from api.v1.analysis import router as analysis_router
-from api.v1.sections import router as sections_router
-from api.properties import router as properties_router
-
-# 로깅 설정
+# 로깅 설정 (import 이전으로 이동)
 logging.basicConfig(level=getattr(logging, settings.LOG_LEVEL))
 logger = logging.getLogger(__name__)
+
+# API 라우터 임포트 (상대 경로로 변경) - 에러 처리 추가
+try:
+    from api.v1.listings import router as listings_router
+    logger.info("✅ listings 라우터 import 성공")
+except Exception as e:
+    logger.error(f"❌ listings 라우터 import 실패: {e}")
+    listings_router = None
+
+try:
+    from api.v1.analysis import router as analysis_router
+    logger.info("✅ analysis 라우터 import 성공")
+except Exception as e:
+    logger.error(f"❌ analysis 라우터 import 실패: {e}")
+    analysis_router = None
+
+try:
+    from api.v1.sections import router as sections_router
+    logger.info("✅ sections 라우터 import 성공")
+except Exception as e:
+    logger.error(f"❌ sections 라우터 import 실패: {e}")
+    sections_router = None
+
+try:
+    from api.properties import router as properties_router
+    logger.info("✅ properties 라우터 import 성공")
+except Exception as e:
+    logger.error(f"❌ properties 라우터 import 실패: {e}")
+    properties_router = None
 
 # FastAPI 앱 인스턴스 생성
 app = FastAPI(
@@ -115,6 +138,22 @@ async def health_check():
         logger.error(f"헬스체크 실패: {e}")
         raise HTTPException(status_code=503, detail="Service unavailable")
 
+@app.get("/debug/routes")
+async def debug_routes():
+    """등록된 라우트 디버그"""
+    routes = []
+    for route in app.routes:
+        if hasattr(route, 'path') and hasattr(route, 'methods'):
+            routes.append({
+                "path": route.path,
+                "methods": list(route.methods) if route.methods else [],
+                "name": getattr(route, 'name', 'Unknown')
+            })
+    return {
+        "total_routes": len(routes),
+        "routes": routes
+    }
+
 @app.get("/api/v1")
 async def api_info():
     """API 정보 엔드포인트"""
@@ -165,31 +204,47 @@ async def api_info():
         "documentation": "/docs" if settings.DEBUG else "disabled"
     }
 
-# API 라우터 등록 - 구체적인 경로를 먼저, 일반적인 경로를 나중에 등록
-app.include_router(
-    listings_router,
-    prefix="/api/v1/listings",
-    tags=["listings"]
-)
+# API 라우터 등록 - import에 성공한 라우터만 등록
+if listings_router:
+    app.include_router(
+        listings_router,
+        prefix="/api/v1/listings",
+        tags=["listings"]
+    )
+    logger.info("✅ listings 라우터 등록 완료")
+else:
+    logger.warning("❌ listings 라우터 등록 실패 (import 실패)")
 
-app.include_router(
-    analysis_router,
-    prefix="/api/v1/analysis",
-    tags=["analysis"]
-)
+if analysis_router:
+    app.include_router(
+        analysis_router,
+        prefix="/api/v1/analysis",
+        tags=["analysis"]
+    )
+    logger.info("✅ analysis 라우터 등록 완료")
+else:
+    logger.warning("❌ analysis 라우터 등록 실패 (import 실패)")
 
-app.include_router(
-    sections_router,
-    prefix="/api/v1/sections",
-    tags=["sections"]
-)
+if sections_router:
+    app.include_router(
+        sections_router,
+        prefix="/api/v1/sections",
+        tags=["sections"]
+    )
+    logger.info("✅ sections 라우터 등록 완료")
+else:
+    logger.warning("❌ sections 라우터 등록 실패 (import 실패)")
 
 # properties 라우터는 더 구체적인 경로로 변경하여 충돌 방지
-app.include_router(
-    properties_router,
-    prefix="/api/properties",
-    tags=["properties"]
-)
+if properties_router:
+    app.include_router(
+        properties_router,
+        prefix="/api/properties",
+        tags=["properties"]
+    )
+    logger.info("✅ properties 라우터 등록 완료")
+else:
+    logger.warning("❌ properties 라우터 등록 실패 (import 실패)")
 
 if __name__ == "__main__":
     import uvicorn
