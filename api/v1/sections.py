@@ -24,6 +24,33 @@ def get_db():
     return get_supabase_client()
 
 
+@router.get("/debug")
+async def debug_sections():
+    """섹션 API 디버그"""
+    try:
+        # Supabase 연결 테스트
+        db = get_supabase_client()
+        
+        # 간단한 쿼리 테스트
+        result = db.table("sections").select("id, name").limit(1).execute()
+        
+        return {
+            "status": "success",
+            "supabase_connected": True,
+            "sample_data": result.data,
+            "total_routes": len([route for route in router.routes]),
+            "message": "섹션 API 정상 작동"
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "supabase_connected": False,
+            "error": str(e),
+            "error_type": type(e).__name__,
+            "message": "섹션 API 에러 발생"
+        }
+
+
 @router.get("/", response_model=List[SectionResponse])
 async def list_sections(
     active_only: bool = Query(False, description="활성 섹션만 조회"),
